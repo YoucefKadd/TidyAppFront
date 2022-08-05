@@ -6,6 +6,7 @@ import axios from 'axios';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
 
     const submit = async (e) => {
         // création d'un objet afin user pour l'envoyer en requete
@@ -15,7 +16,26 @@ const Login = () => {
         }
         axios.post('https://localhost:7183/api/Auth/login', user, {withCredentials: true})
             .then(res => {
-                console.log(res.data.token);
+                console.log(res);
+                setToken(res.data);
+               
+                // if (res.status === 200) { 
+                //     console.log('Inscription réussie ! vous allez être redirigé ver la page de login');
+                //     // setRedirect(true);
+                //  }
+                // else { console.log("Echec de l'inscription") }
+
+                // console.log(res.data);
+            });
+    };
+
+    const tokenAuthorize = async (e) => {
+        axios.get('https://localhost:7183/WeatherForecast', {
+            headers: { authorization: `bearer ${token}` }
+            },
+            {withCredentials: true})
+            .then(res => {
+                console.log(res);
                
                 // if (res.status === 200) { 
                 //     console.log('Inscription réussie ! vous allez être redirigé ver la page de login');
@@ -43,6 +63,8 @@ const Login = () => {
               </div>
               <div className="w-100 btn btn-lg btn-primary" onClick={submit}>Se connecter</div>
               <p className="mt-5 mb-3 text-muted ">Yoka &copy; 2022</p>
+              <p>Test d'une requete Auhtorisation</p>
+              <div className="w-100 btn btn-lg btn-primary" onClick={tokenAuthorize}>Tester</div>
           </form>
         </div>
     );
