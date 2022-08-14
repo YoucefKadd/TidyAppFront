@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -29,23 +29,24 @@ const Login = () => {
             });
     };
 
-    const tokenAuthorize = async (e) => {
-        axios.get('https://localhost:7183/WeatherForecast', {
-            headers: { authorization: `bearer ${token}` }
-            },
-            {withCredentials: true})
-            .then(res => {
-                console.log(res);
+    // fonction pour tester une requete pour les routes protégé
+    // const tokenAuthorize = async (e) => {
+    //     axios.get('https://localhost:7183/WeatherForecast', {
+    //         headers: { authorization: `bearer ${token}` }
+    //         },
+    //         {withCredentials: true})
+    //         .then(res => {
+    //             console.log(res);
                
-                // if (res.status === 200) { 
-                //     console.log('Inscription réussie ! vous allez être redirigé ver la page de login');
-                //     // setRedirect(true);
-                //  }
-                // else { console.log("Echec de l'inscription") }
+    //             // if (res.status === 200) { 
+    //             //     console.log('Inscription réussie ! vous allez être redirigé ver la page de login');
+    //             //     // setRedirect(true);
+    //             //  }
+    //             // else { console.log("Echec de l'inscription") }
 
-                // console.log(res.data);
-            });
-    }
+    //             // console.log(res.data);
+    //         });
+    // }
 
 
     return (
@@ -63,8 +64,10 @@ const Login = () => {
               </div>
               <div className="w-100 btn btn-lg btn-primary" onClick={submit}>Se connecter</div>
               <p className="mt-5 mb-3 text-muted ">Yoka &copy; 2022</p>
-              <p>Test d'une requete Auhtorisation</p>
-              <div className="w-100 btn btn-lg btn-primary" onClick={tokenAuthorize}>Tester</div>
+              
+              {/* <p>Test d'une requete Auhtorisation</p>
+              <div className="w-100 btn btn-lg btn-primary" onClick={tokenAuthorize}>Tester</div> */}
+          
           </form>
         </div>
     );
