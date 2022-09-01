@@ -3,7 +3,8 @@ import React from 'react';
 const Fournisseur = () => {
     return (
         <div>
-            Pages des fournisseurs
+            <h1 class="display-3">Fournisseur</h1>
+            <hr />
         </div>
     );
 };

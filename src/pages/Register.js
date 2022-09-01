@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -36,6 +36,7 @@ const Register = () => {
     }
 
     // si l'isncription est réussie on redirige vers la page de login
+   
     if (redirect)
     return <Navigate  to="/login" />;
 

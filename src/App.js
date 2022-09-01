@@ -18,53 +18,35 @@ import Stock from './pages/Stock';
 import Header from './components/Header';
 import SideBar from './components/SideBar';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function App() {
+  // const [connected, setConnected] = useState(false);
+  // const [userConnected, setUserConnected] = useState();
+  // const [userConnected, setUserConnected] = useState(useSelector((state) => state.userStore.user.value))
 
-  const [auth, setAuth] = useState(true);
+  
+  const logged = useSelector((state) => state.userStore.userLogged);
+  const [auth, setAuth] = useState(false);
   return (
     <div className="App">
       {/* La partie Menu / Navigation */}
       <Header />
-
-      <div className="container-fluid">
-        <div className="row">
-          {/* <Nav /> */}
-          {auth ?
-            <>
-              <SideBar />
-
-              <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <Routes>
-                  <Route path='/dashboard' element={<Dashboard />} />
-                  <Route path='/categorie' element={<Categorie />} />
-                  <Route path='/flux' element={<Flux />} />
-                  <Route path='/fournisseur' element={<Fournisseur />} />
-                  <Route path='/produit' element={<Produit />} />
-                  <Route path='/stock' element={<Stock />} />
-                </Routes>
-              </main>
-            </>
-            :
-            <main className="form-signin w-100 m-auto">
-              <Login />
-            </main>}
+      {/* {auth ? */}
+        <div className="container-fluid">
+          <div className="row">
+            <Routes>
+              <Route path='*' element={<Home />} />
+              <Route path='/home' element={<Home />} />
+              {/* <Route path='/login' element={<Login setConnected={setConnected} setUserConnected={setUserConnected}/>} /> */}
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-
-
-
-      {/* La partie connexion */}
-
-      {/* <main className="form-signin w-100 m-auto"> */}
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        {/* <Route path='/dashboard' element={<Dashboard />} /> */}
-      </Routes>
-      {/* </main> */}
-
+        {/* : <Login setAuth={setAuth}/>
+      } */}
 
     </div>
 
