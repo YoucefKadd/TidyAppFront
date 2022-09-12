@@ -22,3 +22,8 @@ margin-top: 30vh;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.form-ajoutProduit {
+  max-width: auto;
+  padding: 15px;
+}

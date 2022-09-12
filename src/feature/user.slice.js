@@ -10,19 +10,9 @@ export const userSlice = createSlice(
             setUserOnStore: (state, { payload }) => {
                 state.user = payload;
             },
-        },
-
-    },
-    {
-        name : 'userLogged',
-        initialState : false,
-        reducers : {
-            setUserLogged: (state, { payload }) => {
-                state = payload
-            }
         }
     }
 );
 
-export const { setUserOnStore, setUserLogged } = userSlice.actions
+export const { setUserOnStore } = userSlice.actions
 export default userSlice.reducer;

@@ -20,20 +20,30 @@ import SideBar from './components/SideBar';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// context
+import UserContext from './context/UserContext';
+
 
 function App() {
   // const [connected, setConnected] = useState(false);
   // const [userConnected, setUserConnected] = useState();
   // const [userConnected, setUserConnected] = useState(useSelector((state) => state.userStore.user.value))
 
-  
+  const [user, setUser] = useState();
+  const contextValue = {
+    user,
+    updateUser: setUser
+  }
+
   const logged = useSelector((state) => state.userStore.userLogged);
-  const [auth, setAuth] = useState(false);
+  // const [auth, setAuth] = useState(false);
   return (
-    <div className="App">
-      {/* La partie Menu / Navigation */}
-      <Header />
-      {/* {auth ? */}
+
+    <UserContext.Provider value={contextValue}>
+      <div className="App">
+        {/* La partie Menu / Navigation */}
+        <Header value={contextValue}/>
+        {/* {auth ? */}
         <div className="container-fluid">
           <div className="row">
             <Routes>
@@ -48,7 +58,8 @@ function App() {
         {/* : <Login setAuth={setAuth}/>
       } */}
 
-    </div>
+      </div>
+    </UserContext.Provider>
 
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -16,15 +16,23 @@ import { setUserOnStore } from '../feature/user.slice';
 
 import SideBar from './../components/SideBar';
 import { useEffect } from 'react';
+import UserContext from '../context/UserContext';
 
 
 
 const Home = (props) => {
     const userData = useSelector((state) => state.userStore.user);
 
+    const contextValue = useContext(UserContext);
+
+
 
     useEffect(() => {
         document.title = 'Home';
+
+        console.log("l id de le user est laaaaaa :")
+        console.log(contextValue.user.userId)
+
     })
 
     // const [userConnected, setUserConnected] = useState(props.user);

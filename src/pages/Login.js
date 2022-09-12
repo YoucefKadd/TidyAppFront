@@ -4,6 +4,9 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogged, setUserOnStore } from '../feature/user.slice';
+import { setEntrepotOnStore } from '../feature/entrepot.slice';
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 
 const Login = (props) => {
@@ -17,9 +20,13 @@ const Login = (props) => {
 
     const [redirect, setRedirect] = useState(false);
 
-
+    // REDUX TOOLKIT
     const dispatch = useDispatch();
-    const userData = useSelector((state) => state.userStore.user);
+    // const selector = useSelector();
+    // const userData = useSelector((state) => state.userStore.user);
+
+    const contextValue = useContext(UserContext);
+
 
 
     useEffect(() => {
@@ -40,6 +47,10 @@ const Login = (props) => {
                 console.log(res.data.value.token);
                 console.log(res.data.value.userName);
                 console.log(res.data.value.userId);
+                setUserId(res.data.value.userId);
+                console.log('l id de user est' + userId)
+
+
 
                 if (res.status === 200) {
                     console.log('Connexion réussie ! vous allez être redirigé ver votre Dashboard');
@@ -47,17 +58,26 @@ const Login = (props) => {
                     setUserName(res.data.value.userName);
                     setUserId(res.data.value.userId);
 
-                    // dispatch(setUserOnStore(res.data));
+                    // permet de mettre les données reçu par res.data dans le store
+                    dispatch(setUserOnStore(res.data.value));
+
+                    contextValue.updateUser(res.data.value);
+                    console.log(contextValue.user);
+                    
                     setUser({
                         token: token,
                         userId: userId,
                         userName: userName
                     });
 
+                    console.log('dans la page Login, id user avant requete de l entreport est : ')
+                    console.log(res.data.value.userId)
+                    const idtmp = res.data.value.userId
                     axios
-                        .get('https://localhost:7183/api/Entrepot?userId=2003')
+                        .get(`https://localhost:7183/api/Entrepot?userId=${idtmp}`)
                         .then((res) => {
                             console.log(res.data);
+                            dispatch(setEntrepotOnStore(res.data[0]));
                         });
 
 
@@ -119,7 +139,7 @@ const Login = (props) => {
                 </div>
                 <div className="form-floating">
                     <input type="password" className="form-control" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
-                    <label for="floatingPassword">Password</label>
+                    <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div className="w-100 btn btn-lg btn-primary" onClick={submit}>Se connecter</div>
                 <p className="mt-5 mb-3 text-muted ">Yoka &copy; 2022</p>
