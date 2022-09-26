@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcons from '../components/Icons/DeleteIcons';
 import EditIcons from '../components/Icons/EditIcons';
-import TableRow from '../components/table/TableRow';
+import TableRowProduit from '../components/table/TableRowProduit';
+import TableRow from '../components/table/TableRowProduit';
 import UserContext from '../context/UserContext';
 import { addProduit, deleteProduit, setProduitsOnStore } from '../feature/produits.slice';
 
@@ -96,10 +97,10 @@ const Produit = () => {
 
                     <div className="row">
                         <div className="col">
-                            <input type="text" className="form-control" placeholder="Nom produit" aria-label="Nom produit" required onChange={e => setNomProduit(e.target.value)} />
+                            <input type="text" className="form-control " placeholder="Nom produit" aria-label="Nom produit" required onChange={e => setNomProduit(e.target.value)} />
                         </div>
                         <div className="col">
-                            <input type="text" className="form-control" placeholder="Prix" aria-label="Prix" required onChange={e => setPrixProduit(e.target.value)} />
+                            <input type="number" className="form-control" placeholder="Prix" aria-label="Prix" required onChange={e => setPrixProduit(e.target.value)} />
                         </div>
                         <div className="col">
                             <input type="text" className="form-control" placeholder="Ref" aria-label="Ref" required onChange={e => setRefProduit(e.target.value)} />
@@ -131,7 +132,7 @@ const Produit = () => {
                         {
                             produitsData?.map((el) => (
                                 <tr key={el.id}>
-                                    <TableRow key={el.id} produit={el} />
+                                    <TableRowProduit key={el.id} produit={el} />
                                 </tr>
                             ))
                         }

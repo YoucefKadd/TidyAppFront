@@ -1,0 +1,28 @@
+.edit-name{
+    width: 25em;
+    }
+    
+.edit-qte{
+    width: 6em;
+}
+.edit-prix{
+    width: 6em;
+}
+    
+
+
+
+.deleteIcon:hover{
+    background-color: rgba(255, 125, 125, 0.315);
+
+}
+
+.deleteIcon{
+    /* text-align: center; */
+}
+
+.editIcon:hover{
+    background-color: rgba(134, 134, 134, 0.315);
+
+}
+

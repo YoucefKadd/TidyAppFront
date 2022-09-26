@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogged, setUserOnStore } from '../feature/user.slice';
 import { setEntrepotOnStore } from '../feature/entrepot.slice';
-import { useContext } from 'react';
-import UserContext from '../context/UserContext';
+import { setCategoriesOnStore } from '../feature/categorie.slice';
 
 
 const Login = (props) => {
@@ -17,6 +18,8 @@ const Login = (props) => {
     const [userName, setUserName] = useState('');
     const [userId, setUserId] = useState(0);
     const [user, setUser] = useState();
+
+    const [entrepotID, setEntrepotID] = useState(0);
 
     const [redirect, setRedirect] = useState(false);
 
@@ -63,7 +66,7 @@ const Login = (props) => {
 
                     contextValue.updateUser(res.data.value);
                     console.log(contextValue.user);
-                    
+
                     setUser({
                         token: token,
                         userId: userId,
@@ -73,12 +76,33 @@ const Login = (props) => {
                     console.log('dans la page Login, id user avant requete de l entreport est : ')
                     console.log(res.data.value.userId)
                     const idtmp = res.data.value.userId
+                    // let idEntrepotTmp;
+
+                    // let idEntr;
                     axios
                         .get(`https://localhost:7183/api/Entrepot?userId=${idtmp}`)
                         .then((res) => {
+
+                            console.log("ceci est repense de lentrepot");
                             console.log(res.data);
+                            console.log(res.data[0].id);
                             dispatch(setEntrepotOnStore(res.data[0]));
+                            const entrepotIdRequest = res.data[0].id
+                            
+                            setEntrepotID(entrepotIdRequest);
+
+
+
+                            axios
+                                .get(`https://localhost:7183/api/Famille?entrepotId=${entrepotIdRequest}`)
+                                .then((res) => {
+                                    console.log(res.data)
+                                    dispatch(setCategoriesOnStore(res.data));
+
+                                });
                         });
+                    console.log('ceci est le teste juse avant la requetre ' + entrepotID)
+
 
 
                     // props.setConnected(true);

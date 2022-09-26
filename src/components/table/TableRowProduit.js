@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduit } from '../../feature/produits.slice';
 
+import './TableRowProduit.css'
+
 import DeleteIcons from '../Icons/DeleteIcons';
 import EditIcons from '../Icons/EditIcons';
 // import { useDispatch } from 'react-redux';
@@ -11,7 +13,7 @@ import EditIcons from '../Icons/EditIcons';
 
 
 
-const TableRow = ({ produit }) => {
+const TableRowProduit = ({ produit }) => {
 
     // UseRef pour garder la valeurs du formulaire d'édition
     const nameProduitInput = useRef();
@@ -84,9 +86,9 @@ const TableRow = ({ produit }) => {
         <>
             {edit ?
                 (<>
-                    <td><input type="text" className="form-control" defaultValue={produit.name} autoFocus ref={nameProduitInput} /></td>
-                    <td><input type="number" className="form-control" defaultValue={produit.qteStock} ref={qteStocktInput} /></td>
-                    <td><input type="number" className="form-control" defaultValue={produit.prix} ref={prixInput} /></td>
+                    <td><input type="text" className="form-control edit-name" defaultValue={produit.name} autoFocus ref={nameProduitInput} /></td>
+                    <td><input type="number" className="form-control edit-qte" defaultValue={produit.qteStock} ref={qteStocktInput} /></td>
+                    <td><input type="number" className="form-control edit-prix" defaultValue={produit.prix} ref={prixInput} /></td>
                     {/* <td>{produit.prix}€</td> */}
 
                     {/* <td><input type="text" className="form-control" defaultValue={produit.prix * produit.qteStock}  ref={produitInput} /></td> */}
@@ -117,11 +119,11 @@ const TableRow = ({ produit }) => {
                         <td>{qrCodeInput.current ? qrCodeInput.current.value : produit.ref}</td>
                         {/* <td>{produit.ref}</td> */}
 
-                        <td onClick={() => supprimerProduit(produit.id)}><DeleteIcons /></td>
-                        <td onClick={() => setEdit(!edit)}><EditIcons /></td>
+                        <td className='deleteIcon mx-auto text-center' onClick={() => supprimerProduit(produit.id)}><DeleteIcons /></td>
+                        <td className='editIcon text-center' onClick={() => setEdit(!edit)}><EditIcons /></td>
                     </>)}
         </>
     );
 };
 
-export default TableRow;
+export default TableRowProduit;

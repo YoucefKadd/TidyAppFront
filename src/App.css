@@ -27,3 +27,7 @@ margin-top: 30vh;
   max-width: auto;
   padding: 15px;
 }
+
+table{
+  vertical-align: middle!important;
+}
