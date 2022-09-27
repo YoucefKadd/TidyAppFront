@@ -131,45 +131,11 @@ const Produit = () => {
                     <tbody>
                         {
                             produitsData?.map((el) => (
-                                <tr key={el.id}>
+                                <tr >
                                     <TableRowProduit key={el.id} produit={el} />
                                 </tr>
                             ))
                         }
-
-                        {/* <tr>
-                            <th scope="row">East Bag</th>
-                            <td>30</td>
-                            <td>15.99 €</td>
-                            <td>479.7 €</td>
-                            <td>Scolaire</td>
-                            <td>SCOL001EB</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Trousse</th>
-                            <td>60</td>
-                            <td>3.99 €</td>
-                            <td>239.4 €</td>
-                            <td>Scolaire</td>
-                            <td>SCOL001TR</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Stylos</th>
-                            <td>120</td>
-                            <td>1.99 €</td>
-                            <td>238.8 €</td>
-                            <td>Scolaire</td>
-                            <td>SCOL001ST</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">AirPods</th>
-                            <td>30</td>
-                            <td>129 €</td>
-                            <td>3 870 €</td>
-                            <td>Tech</td>
-                            <td>TECH001AP</td>
-                        </tr> */}
-
                     </tbody>
                 </table>
             </div>

@@ -42,7 +42,7 @@ const TableRowProduit = ({ produit }) => {
                 }
             })
     }
-
+    
     // Edition d'un produit DOM et BDD
     const editerProduit = (id, entrepotId) => {
         setEdit(false);
