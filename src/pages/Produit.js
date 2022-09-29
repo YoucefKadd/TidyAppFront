@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useContext } from 'react';
 import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcons from '../components/Icons/DeleteIcons';
 import EditIcons from '../components/Icons/EditIcons';
@@ -23,12 +23,21 @@ const Produit = () => {
     const [descripProduit, setDescripProduit] = useState('');
     const [prixProduit, setPrixProduit] = useState(0);
 
+    const categorieList = useSelector((state) => state.categorieStore.categories);
+    const [categorieSelected, setCategorieSelected] = useState(0);
+
+    const [tableChange, setTableChange] = useState(false)
+    const edition = useRef(false);
+
+
     // Redux Store
     const dispatch = useDispatch();
     const produitsData = useSelector((state) => state.produitsStore.produits);
 
     // form Edition
-    const [edit, setEdit] = useState(false)
+    const [edit, setEdit] = useState(false);
+
+    // const[edition, setEdition] = useState(false)
 
     useEffect(() => {
         // const idEntrepottmp = 
@@ -40,10 +49,45 @@ const Produit = () => {
                 console.log(res);
                 dispatch(setProduitsOnStore(res.data))
                 setListProduit(res.data)
-                console.log(listProduit[0].name)
+                // console.log(listProduit[0].name)
                 // formRef.current.reset();
             });
     }, []);
+
+    useEffect(() => {
+        // const idEntrepottmp = 
+        console.log(entrepotId)
+        //'https://localhost:7183/api/Produit?entrepotId=12'
+        axios
+            .get(`https://localhost:7183/api/Produit?entrepotId=${entrepotId}`)
+            .then((res) => {
+                console.log(res);
+                dispatch(setProduitsOnStore(res.data))
+                setListProduit(res.data)
+                // console.log(listProduit[0].name)
+                // formRef.current.reset();
+            });
+    }, []);
+    useEffect(() => {
+        // const idEntrepottmp = 
+        // console.log(entrepotId)
+        //'https://localhost:7183/api/Produit?entrepotId=12'
+        axios
+            .get(`https://localhost:7183/api/Produit?entrepotId=${entrepotId}`)
+            .then((res) => {
+                console.log(res);
+                dispatch(setProduitsOnStore(res.data))
+                setListProduit(res.data)
+                // console.log(listProduit[0].name)
+                // formRef.current.reset();
+            });
+    }, [edition]);
+
+    
+    // fonction handle pour la selection de categorie
+    const selectHandleChange = (e) => {
+        setCategorieSelected(e.target.value);
+    }
 
     // Ajout d'un produit DOM et BDD
     const ajouterProduit = async () => {
@@ -55,8 +99,11 @@ const Produit = () => {
             prix: prixProduit,
             image: "NoImage",
             qteStock: 0,
-            entrepotId: entrepotId
+            entrepotId: entrepotId,
+            familleId: categorieSelected
         }
+
+        console.log("la categorie selectionné est : "  + categorieSelected)
 
         axios
             .post('https://localhost:7183/api/Produit', produitDto, { withCredentials: true })
@@ -65,6 +112,16 @@ const Produit = () => {
                     console.log('Ajout du produit ' + produitDto.name + " réussi !");
                     console.log(res)
                     dispatch(addProduit(produitDto));
+
+                    axios
+                    .get(`https://localhost:7183/api/Produit?entrepotId=${entrepotId}`)
+                    .then((res) => {
+                        console.log(res);
+                        dispatch(setProduitsOnStore(res.data))
+                        setListProduit(res.data)
+                        // console.log(listProduit[0].name)
+                        // formRef.current.reset();
+                    });
                 }
             })
     }
@@ -108,6 +165,19 @@ const Produit = () => {
                         <div className="col">
                             <input type="text" className="form-control" placeholder="Description" aria-label="Description" required onChange={e => setDescripProduit(e.target.value)} />
                         </div>
+                        <div className="col">
+                            <select class="form-select form-select" aria-label=".form-select-sm example" value={categorieSelected} onChange={selectHandleChange}>
+                                <option selected>Selectioner une catégorie</option>
+                                {
+                                    categorieList?.map((sel) => (
+                                        <option value={sel.id}>{sel.name}</option>
+                                    ))
+                                }
+                                {/* <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option> */}
+                            </select>
+                        </div>
                         <div className="w-auto btn btn-sm btn-primary" onClick={ajouterProduit}>Ajouter</div>
 
                     </div>
@@ -132,7 +202,7 @@ const Produit = () => {
                         {
                             produitsData?.map((el) => (
                                 <tr >
-                                    <TableRowProduit key={el.id} produit={el} />
+                                    <TableRowProduit key={el.id} produit={el} categorieList={categorieList} setListProduit={() =>setListProduit()} edition={edition}/>
                                 </tr>
                             ))
                         }

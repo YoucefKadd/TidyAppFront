@@ -13,8 +13,9 @@
     left: 0;
     z-index: 100; /* Behind the navbar */
     padding: 48px 0 0; /* Height of navbar */
-    background-color: #2470dc;
-    box-shadow: inset -1px 0 0 rgba(53, 106, 251, 0.855);
+    /* background-color: #2470dc; */
+    background-color: #fffeff;
+    box-shadow: inset -1px 0 0 rgba(222, 231, 255, 0.855);
   }
 
   .nav {
@@ -36,7 +37,13 @@
   .sidebar .nav-link {
     font-weight: 500;
     /* color: #333; */
-    color: rgb(248, 248, 248);
+    /* color: rgb(248, 248, 248); */
+    color: #2470dc;
+    margin-right: 15px;
+    border-radius: 20px 20px 20px 20px;
+    transition: all 0.3s;
+    margin-top: 0.5em;
+
   }
   
   .sidebar .nav-link .feather {
@@ -45,11 +52,25 @@
   }
   
   .sidebar .nav-link.active {
-    background-color: white;
-    border-radius: 20px 0% 0% 20px;
+    /* background-color: white; */
+    background-color: #2470dc;
+    border-radius: 20px 20px 20px 20px;
     box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.855);
 
-    color: #2470dc;
+    margin-right: 15px;
+    /* color: #2470dc; */
+    color: #fcfdff;
+  }
+
+  .sidebar .nav-link:hover {
+    /* background-color: white; */
+    margin-right: 15px;
+    background-color: #4f8bdf;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.855);
+
+    /* color: #2470dc; */
+    color: #fcfdff;
   }
   
   .sidebar .nav-link:hover .feather,

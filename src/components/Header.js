@@ -34,20 +34,27 @@ const Header = (props) => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <input className="form-control form-control-primary w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search" />
-                    <div className="navbar-nav">
-                        {userLogged ? 
-                        <div className="nav-item text-nowrap">
-                            <Link to='/' className="nav-link px-3" href="#">Se déconecter</Link>
-                        </div>
-                        :
-                        <div className="nav-item text-nowrap">
-                            <Link to='/' className="nav-link px-3" href="#">Se connecter</Link>
-                        </div>
-                        }
-                        {/* <div class="nav-item text-nowrap">
+                <div className="navbar-nav d-flex flex-row">
+                    {userLogged ?
+                        (
+                            <>
+                                {/* <div className="nav-item text-nowrap">
+                                    <Link to='/' className="nav-link px-3" href="#">{props.value.user.userName.toUpperCase()}</Link>
+                                </div> */}
+                                <div className="nav-item text-nowrap">
+                                    <Link to='/' className="nav-link px-3" href="#">Se déconecter</Link>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="nav-item text-nowrap">
+                                <Link to='/' className="nav-link px-3" href="#">Se connecter</Link>
+                            </div>
+                        )
+                    }
+                    {/* <div class="nav-item text-nowrap">
                             <a class="nav-link px-3" href="#">S'inscrire</a>
                         </div> */}
-                    </div>
+                </div>
             </header>
         </>
     );

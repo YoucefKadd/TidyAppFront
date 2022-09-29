@@ -28,7 +28,8 @@ export const produitsSlice = createSlice(
                             prix: payload.produitDto.prix,
                             image: "no image",
                             qteStock: payload.produitDto.qteStock,
-                            entrepotId: payload.produitDto.entrepotId
+                            entrepotId: payload.produitDto.entrepotId,
+                            familleId: payload.produitDto.familleId
                         };
                     }
                     else {
